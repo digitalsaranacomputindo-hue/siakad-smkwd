@@ -1,0 +1,67 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Default-deny safety net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return isSignedIn() && (
+        request.auth.token.email == 'digitalsaranacomputindo@gmail.com' ||
+        request.auth.token.email_verified == true
+      );
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() > 0 && id.size() <= 128;
+    }
+
+    // School Settings & Profile
+    match /settings/{settingId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Report Card Configuration
+    match /report_configs/{configId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Students collection
+    match /students/{studentId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // BK Counseling & Discipline Records
+    match /bk_records/{recordId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Grades collection
+    match /grades/{gradeId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // PKL Industrial placements
+    match /pkl_placements/{placementId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Tracer Study records
+    match /tracer_study/{tracerId} {
+      allow read: if true;
+      allow write: if isSignedIn() || isAdmin();
+      allow create: if true; // Allow alumni to submit tracer study surveys
+    }
+  }
+}

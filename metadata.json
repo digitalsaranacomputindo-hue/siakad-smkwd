@@ -1,0 +1,6 @@
+{
+  "name": "SIAKAD SMK Nusantara - Academic & Lifecycle Management",
+  "description": "Sistem Informasi Akademik SMK Lengkap: Lifecycle Siswa (PPDB hingga Alumni), Catatan BK & Poin Disiplin, Nilai Rapor & UKK, Manajemen PKL Industri, Kelulusan & SKL, serta Tracer Study (BMW).",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

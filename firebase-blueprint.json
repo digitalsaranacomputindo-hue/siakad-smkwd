@@ -1,0 +1,224 @@
+{
+  "entities": {
+    "SchoolProfile": {
+      "title": "SchoolProfile",
+      "description": "Profil dan identitas resmi sekolah SMK",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string", "maxLength": 200 },
+        "shortName": { "type": "string", "maxLength": 100 },
+        "npsn": { "type": "string", "maxLength": 20 },
+        "nss": { "type": "string", "maxLength": 30 },
+        "status": { "type": "string", "maxLength": 100 },
+        "accreditation": { "type": "string", "maxLength": 50 },
+        "address": { "type": "string", "maxLength": 300 },
+        "city": { "type": "string", "maxLength": 100 },
+        "province": { "type": "string", "maxLength": 100 },
+        "postalCode": { "type": "string", "maxLength": 20 },
+        "phone": { "type": "string", "maxLength": 50 },
+        "email": { "type": "string", "maxLength": 100 },
+        "website": { "type": "string", "maxLength": 150 },
+        "principal": { "type": "string", "maxLength": 150 },
+        "principalNip": { "type": "string", "maxLength": 50 },
+        "counselingHead": { "type": "string", "maxLength": 150 },
+        "hubinHead": { "type": "string", "maxLength": 150 },
+        "academicYear": { "type": "string", "maxLength": 20 },
+        "semester": { "type": "string", "maxLength": 20 },
+        "logoUrl": { "type": "string", "maxLength": 500000 },
+        "kopProvinsi": { "type": "string", "maxLength": 200 },
+        "kopDinas": { "type": "string", "maxLength": 200 },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["name", "npsn", "academicYear", "semester"]
+    },
+    "ReportConfig": {
+      "title": "ReportConfig",
+      "description": "Konfigurasi format rapor siswa yang dapat diubah admin",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "templateType": { "type": "string", "enum": ["KURIKULUM_MERDEKA", "KURIKULUM_2013", "DUAL_SYSTEM_TEFA", "TRANSKRIP_RINGKAS"] },
+        "titleHeader": { "type": "string", "maxLength": 200 },
+        "subHeader": { "type": "string", "maxLength": 300 },
+        "showKop": { "type": "boolean" },
+        "kkmStandard": { "type": "number" },
+        "gradingScale": { "type": "string", "enum": ["0-100", "1-4"] },
+        "showFormativeSumativeBreakdown": { "type": "boolean" },
+        "showCompetencyDescription": { "type": "boolean" },
+        "showAttendanceTable": { "type": "boolean" },
+        "showExtracurricular": { "type": "boolean" },
+        "showUKKSection": { "type": "boolean" },
+        "showPKLSection": { "type": "boolean" },
+        "showTeacherNotes": { "type": "boolean" },
+        "showPrincipalQR": { "type": "boolean" },
+        "reportDatePlace": { "type": "string", "maxLength": 100 },
+        "principalName": { "type": "string", "maxLength": 150 },
+        "principalNip": { "type": "string", "maxLength": 50 },
+        "teacherNotesTemplate": { "type": "string", "maxLength": 500 },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["templateType", "titleHeader", "kkmStandard"]
+    },
+    "Student": {
+      "title": "Student",
+      "description": "Data siswa dalam lifecycle SMK dari PPDB sampai Alumni",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "nisn": { "type": "string", "maxLength": 20 },
+        "nik": { "type": "string", "maxLength": 25 },
+        "name": { "type": "string", "maxLength": 150 },
+        "gender": { "type": "string", "enum": ["L", "P"] },
+        "birthPlace": { "type": "string", "maxLength": 100 },
+        "birthDate": { "type": "string", "maxLength": 20 },
+        "classLevel": { "type": "string", "enum": ["PPDB", "X", "XI", "XII", "XIII", "ALUMNI"] },
+        "major": { "type": "string", "maxLength": 20 },
+        "className": { "type": "string", "maxLength": 50 },
+        "status": { "type": "string", "enum": ["CALON", "AKTIF", "CUTI", "LULUS", "MUTASI_KELUAR", "DROP_OUT"] },
+        "academicYear": { "type": "string", "maxLength": 20 },
+        "email": { "type": "string", "maxLength": 100 },
+        "phone": { "type": "string", "maxLength": 50 },
+        "parentName": { "type": "string", "maxLength": 150 },
+        "parentPhone": { "type": "string", "maxLength": 50 },
+        "address": { "type": "string", "maxLength": 300 },
+        "photoUrl": { "type": "string", "maxLength": 500000 },
+        "admissionDate": { "type": "string", "maxLength": 20 },
+        "graduationDate": { "type": "string", "maxLength": 20 },
+        "sppStatus": { "type": "string", "maxLength": 50 }
+      },
+      "required": ["id", "nisn", "name", "classLevel", "major", "status"]
+    },
+    "BKRecord": {
+      "title": "BKRecord",
+      "description": "Catatan Bimbingan Konseling dan Poin Kedisiplinan Siswa",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "studentId": { "type": "string", "maxLength": 100 },
+        "studentName": { "type": "string", "maxLength": 150 },
+        "studentClass": { "type": "string", "maxLength": 50 },
+        "date": { "type": "string", "maxLength": 20 },
+        "category": { "type": "string", "maxLength": 50 },
+        "severity": { "type": "string", "maxLength": 50 },
+        "title": { "type": "string", "maxLength": 200 },
+        "description": { "type": "string", "maxLength": 1000 },
+        "points": { "type": "number" },
+        "isReward": { "type": "boolean" },
+        "followUpAction": { "type": "string", "maxLength": 500 },
+        "status": { "type": "string", "maxLength": 50 },
+        "counselorName": { "type": "string", "maxLength": 150 },
+        "parentNotified": { "type": "boolean" }
+      },
+      "required": ["id", "studentId", "category", "points", "status"]
+    },
+    "GradeRecord": {
+      "title": "GradeRecord",
+      "description": "Nilai rapor mata pelajaran siswa",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "studentId": { "type": "string", "maxLength": 100 },
+        "semester": { "type": "number" },
+        "academicYear": { "type": "string", "maxLength": 20 },
+        "subjectCode": { "type": "string", "maxLength": 30 },
+        "subjectName": { "type": "string", "maxLength": 150 },
+        "category": { "type": "string", "maxLength": 50 },
+        "kkm": { "type": "number" },
+        "formativeScore": { "type": "number" },
+        "sumativeMaterialScore": { "type": "number" },
+        "sumativeFinalScore": { "type": "number" },
+        "finalScore": { "type": "number" },
+        "letterGrade": { "type": "string", "maxLength": 5 },
+        "competencyAchievement": { "type": "string", "maxLength": 500 }
+      },
+      "required": ["id", "studentId", "subjectName", "finalScore"]
+    },
+    "PKLPlacement": {
+      "title": "PKLPlacement",
+      "description": "Data penempatan Praktik Kerja Lapangan (PKL) Industri DU/DI",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "studentId": { "type": "string", "maxLength": 100 },
+        "studentName": { "type": "string", "maxLength": 150 },
+        "studentNisn": { "type": "string", "maxLength": 20 },
+        "major": { "type": "string", "maxLength": 20 },
+        "studentClass": { "type": "string", "maxLength": 50 },
+        "companyId": { "type": "string", "maxLength": 100 },
+        "companyName": { "type": "string", "maxLength": 150 },
+        "companyAddress": { "type": "string", "maxLength": 250 },
+        "industryMentor": { "type": "string", "maxLength": 150 },
+        "schoolSupervisor": { "type": "string", "maxLength": 150 },
+        "startDate": { "type": "string", "maxLength": 20 },
+        "endDate": { "type": "string", "maxLength": 20 },
+        "status": { "type": "string", "maxLength": 50 },
+        "technicalScore": { "type": "number" },
+        "disciplineScore": { "type": "number" },
+        "safetyScore": { "type": "number" },
+        "initiativeScore": { "type": "number" },
+        "reportScore": { "type": "number" },
+        "finalScore": { "type": "number" },
+        "predicate": { "type": "string", "maxLength": 50 },
+        "industryFeedback": { "type": "string", "maxLength": 500 },
+        "certificateIssued": { "type": "boolean" },
+        "totalJournals": { "type": "number" }
+      },
+      "required": ["id", "studentId", "companyName", "status"]
+    },
+    "TracerStudyRecord": {
+      "title": "TracerStudyRecord",
+      "description": "Data pelacakan alumni dan serapan BMW (Bekerja, Melanjutkan, Wirausaha)",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "studentId": { "type": "string", "maxLength": 100 },
+        "studentName": { "type": "string", "maxLength": 150 },
+        "nisn": { "type": "string", "maxLength": 20 },
+        "major": { "type": "string", "maxLength": 20 },
+        "graduationYear": { "type": "number" },
+        "statusBMW": { "type": "string", "enum": ["BEKERJA", "MELANJUTKAN", "WIRAUSAHA", "MENCARI_KERJA"] },
+        "institutionOrCompanyName": { "type": "string", "maxLength": 200 },
+        "positionOrFieldOrMajor": { "type": "string", "maxLength": 150 },
+        "monthlyIncome": { "type": "string", "maxLength": 50 },
+        "waitingPeriodMonths": { "type": "string", "maxLength": 50 },
+        "curriculumRelevance": { "type": "string", "maxLength": 50 },
+        "feedbackToSmk": { "type": "string", "maxLength": 1000 },
+        "phone": { "type": "string", "maxLength": 50 },
+        "email": { "type": "string", "maxLength": 100 },
+        "submittedAt": { "type": "string", "maxLength": 50 }
+      },
+      "required": ["id", "studentName", "statusBMW", "graduationYear"]
+    }
+  },
+  "firestore": {
+    "/settings/{settingId}": {
+      "schema": "SchoolProfile",
+      "description": "Pengaturan sekolah dan konfigurasi umum"
+    },
+    "/report_configs/{configId}": {
+      "schema": "ReportConfig",
+      "description": "Konfigurasi format rapor yang disesuaikan oleh admin"
+    },
+    "/students/{studentId}": {
+      "schema": "Student",
+      "description": "Koleksi data siswa PPDB hingga Alumni"
+    },
+    "/bk_records/{recordId}": {
+      "schema": "BKRecord",
+      "description": "Catatan bimbingan konseling dan poin siswa"
+    },
+    "/grades/{gradeId}": {
+      "schema": "GradeRecord",
+      "description": "Nilai rapor semester siswa"
+    },
+    "/pkl_placements/{placementId}": {
+      "schema": "PKLPlacement",
+      "description": "Penempatan dan nilai PKL industri"
+    },
+    "/tracer_study/{tracerId}": {
+      "schema": "TracerStudyRecord",
+      "description": "Hasil kuesioner tracer study alumni SMK"
+    }
+  }
+}
